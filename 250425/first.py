@@ -55,6 +55,7 @@ fruit_5 = "포도"
 print(fruit_1, fruit_2, fruit_3, fruit_4, fruit_5)
 '''
 
+'''
 num_1 = "10"
 num_2 = "20"
 text_1 = "+"
@@ -76,5 +77,14 @@ PI = 2
 print(type(PI))
 print(type(name))
 print("사과")
+'''
 
+print("Hello\nWorld")
 
+'''
+ro = "ab"
+rod = "abc"
+print("\"@#@#$\'")
+print("\"C:\\Download\\'hello'.py\"")
+print("print(\"Hello\\nWorld\")")
+'''
