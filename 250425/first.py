@@ -75,5 +75,6 @@ PI = 2
 # 타입 체크
 print(type(PI))
 print(type(name))
+print("사과")
 
 
