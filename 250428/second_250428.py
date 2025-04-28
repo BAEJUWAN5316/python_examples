@@ -121,3 +121,12 @@ print(10/2)
 print(type(10/2))
 print(11//2)
 print(type(int(10/2)))
+print(10/2==0)
+print(10/3)
+print(10%3)
+print(10**5)
+
+# 사칙연산
+
+a = (10*10) + 10 * (20*20) # 100 + 10 * 400
+print(a)
