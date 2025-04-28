@@ -81,10 +81,10 @@ print("사과")
 
 print("Hello\nWorld")
 
-'''
+
 ro = "ab"
 rod = "abc"
 print("\"@#@#$\'")
 print("\"C:\\Download\\'hello'.py\"")
 print("print(\"Hello\\nWorld\")")
-'''
+
