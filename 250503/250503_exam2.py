@@ -51,7 +51,15 @@ while True:
         print(f"[레벨:{lev}, 경험치:{sc1}, 돈:{mo1}]")
         print(f"[공격력: {sta}, 현재 장착 무기: <{inv1[0]}>]")
     if lev == 5:
-        break
+        print("")
+        data1 = input("**레벨이 5가 되었습니다. 다음 마을로 넘어갑니다. [1_네]")
+        if data1 == "1":
+            break
+        else:
+            break
+print("다음 마을로 넘어갑니다.")
+
+
 
 while True:
     print("")
