@@ -104,10 +104,15 @@ print(f"마지막 글자: {data1[-1]}")
 
 #13 13번문제       ????????????????????
 '''
-r1 = "안녕하세요"
-result1 = r1.romanizer()
-print(result1)
+r1 = input("[홍 길동]의 양식으로 이름을 입력해주세요. ").split()
+initials = ""
+
+for part in r1:
+    initials += part[0].upper()  # 각 단어의 첫 글자 (대문자)
+
+print("이니셜:", initials)
 '''
+
 
 #14 14번문제
 '''

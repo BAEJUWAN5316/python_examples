@@ -576,13 +576,13 @@ print(f"자음 개수: {len(data1)-mo1-data3}")
 
 #44 44번문제
 
-# data1 = float(input("숫자를 입력해주세요. : "))
+data1 = float(input("숫자를 입력해주세요. : "))
 
-# if data1 >= int(data1)+0.5:
-    # print(f"가장 가까운 정수: {int(data1)+1}")
+if data1 >= int(data1)+0.5:
+    print(f"가장 가까운 정수: {int(data1)+1}")
 
-# elif data1 < int(data1)+0.5:
-    # print(f"가장 가까운 정수: {int(data1)}")
+elif data1 < int(data1)+0.5:
+    print(f"가장 가까운 정수: {int(data1)}")
 
 
 data1 = float(input("숫자를 입력해주세요. : "))
