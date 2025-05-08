@@ -15,7 +15,7 @@ while True:
     num1 = list1.index("★ ")
 
     print("")
-    
+
     data1 = input("방향을 입력하세요. [4:좌 / 6:우 / 5:그만할래요]: ")
     print("")
     print("- - - - - -")
@@ -24,24 +24,24 @@ while True:
     if num1 == 0 and data1 == 4:
         print(join1)
         print("우측으로만 이동 가능합니다.")
-    elif num1 ==4 and data1 == 6:
+    elif num1 == 4 and data1 == 6:
         print(join1)
         print("좌측으로만 이동 가능합니다.")
 
     elif data1 == 6:
         list1[num1] = "☆ "
-        list1[num1+1] = "★ "
+        list1[num1 + 1] = "★ "
         join1 = "".join(list1)
         count1 = count1 + 1
         print(join1)
 
     elif data1 == 4:
         list1[num1] = "☆ "
-        list1[num1-1] = "★ "
+        list1[num1 - 1] = "★ "
         join1 = "".join(list1)
         count1 = count1 + 1
         print(join1)
-    
+
     elif data1 == 5:
         break
 
