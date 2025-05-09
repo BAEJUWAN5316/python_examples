@@ -22,6 +22,7 @@ for y in range(5):
 '''
 
 
+# 백준 10214 baseball 문제
 
 num = 0
 gamenum = 0
