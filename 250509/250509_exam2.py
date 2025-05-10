@@ -105,6 +105,7 @@ while True:
     if move1 == "5":
         break
 
+print(" ")
 print("************************************")
 print(f"{name}별은 {num}번 움직였습니다!")
 
