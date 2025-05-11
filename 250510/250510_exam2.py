@@ -72,7 +72,25 @@ for x in range(2,10):
 '''
 
 
+# 개인 문제
 
+x = input("영수증에 적힌 총 금액을 적어주세요. : ")
+n = input("구매한 품목의 총 갯수를 적어주세요. : ")
+x = int(x)
+n = int(n)
+cost1 = 0
+
+for data1 in range(1,n+1):
+    item1, item2 = input(f"{data1}번 물품의 가격과 개수를 공백을 두고 적어주세요. : ").split()
+    item1 = int(item1)
+    item2 = int(item2)
+
+    cost1 = cost1 + (item1 * item2)
+
+if x == cost1:
+    print("Yes")
+elif x != cost1:
+    print("No")
 
 
 
