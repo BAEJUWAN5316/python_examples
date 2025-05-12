@@ -93,8 +93,11 @@ while True:
     message1 = input("플레이어의 행동을 고르세요 [1.사냥하기/2.상점가기/3.상태보기/4.끝내기]")
 
     if message1 == "1":
+        print(" ")
+        print(f"{battle1}이(가) 나타났다!")
+        print(" ")
         while True:
-            message2 = input(f"{battle1}이(가) 나타났다! [1.공격/2.소모품 사용하기/3.도망가기]")
+            message2 = input(f"{battle1}는 공격태세를 갖췄다! [1.공격/2.소모품 사용하기/3.도망가기]")
             if battle1 == "다람쥐":
                 enemy1 = mon1
             elif battle1 == "토끼":
