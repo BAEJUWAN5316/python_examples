@@ -17,19 +17,19 @@ print(f'''
 로그인 후 이용해주세요.
 계정이 없다면 회원가입을 한 후 이용해주세요.
 ''')
-
-first = input("계정이 있습니까? [1.있다/2.없다] : ")
-
-if first == "2":
-    data1 = input("아이디를 설정해주세요. : ")
-    data2 = input("비밀번호를 넣어주세요. : ")
-    user = user|{data1:data2}
-if first == "1":
-    None
-else:
-    print("숫자 1 또는 2를 입력해주세요.")
-
 while True:
+    first = input("계정이 있습니까? [1.있다/2.없다] : ")
+
+    if first == "2":
+        data1 = input("아이디를 설정해주세요. : ")
+        data2 = input("비밀번호를 넣어주세요. : ")
+        user = user|{data1:data2}
+    if first == "1":
+        None
+    else:
+        print("숫자 1 또는 2를 입력해주세요.")
+
+
     print("로그인 해주세요.")
     login1 = input("아이디를 입력해주세요. : ")
     login2 = input("비밀번호를 입력해주세요. : ")
