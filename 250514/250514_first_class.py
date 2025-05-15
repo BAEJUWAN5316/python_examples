@@ -394,7 +394,6 @@ class BankAccount:
 
 
 
-
 acc1 = BankAccount("김영희", 1000)
 acc2 = BankAccount("이철수", 500)
 
@@ -408,4 +407,14 @@ acc2.get_log() # → ["300원을 김영희로부터 받음", "100원 출금함"]
 '''
 
 
+def a(x):
+    return x **2
 
+def b(x):
+    return x **3
+
+
+def cal(f, ff, x):
+    return f(x) + f(x)
+
+cal(a,b,2)
