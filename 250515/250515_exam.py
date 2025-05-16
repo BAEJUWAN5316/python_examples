@@ -24,7 +24,14 @@
 #         go1.pri()
 
 
-a = "가나다라마바사"
+a = [{"하나":1, "둘":2},{"셋":3, "넷":4}]
+list1= []
 
-if a in "가":
-    print("하하")
+# for value in a:
+#     list1.append(str(value.values))
+# print(list1)
+
+for keys in a:
+    list1.append(list(keys.keys()))
+
+print(list1)

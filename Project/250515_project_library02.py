@@ -132,27 +132,31 @@ class LibrarySystem:
 
 # num6-----------------------------------------------------
     def return_book(self):
-        print("\n당신의 대여중인 책 목록")
-        for i,v in enumerate(self.rent,1):
-            print(f"{i}. {v} / 대여중")
-        while True:
-            book_number = input("반납할 책 번호를 입력해주세요.[0.취소하기]: ")
-            if book_number.isdigit() == True:
-                if 1 <= int(book_number) <= len(self.books)+1:
-                    for value in self.books:
-                        for i,v in value.items():
-                            if v == self.rent[int(book_number)-1]:
-                                pass
-                    self.rent.pop(int(book_number)-1)
-                    print("도서가 반납되었습니다.")
-                    print(self.rent)
-                    break
-                elif int(book_number) == 0:
-                    break
-                else:
+        if len(self.rent) == 0:
+            print("대여중인 책이 없습니다.")
+        else:
+            print("\n당신의 대여중인 책 목록")
+            for i,v in enumerate(self.rent,1):
+                print(f"{i}. {v} / 대여중")
+            while True:
+                book_number = input("반납할 책 번호를 입력해주세요.[0.취소하기]: ")
+                if book_number.isdigit() == True:
+                    if 1 <= int(book_number) <= len(self.books)+1:
+                        dict_keys = []
+                        for value in self.books:
+                            dict_keys.append(value.values())
+                            print(dict_keys)
+                    
+                        self.rent.pop(int(book_number)-1)
+                        print("도서가 반납되었습니다.")
+                        print(self.rent)
+                        break
+                    elif int(book_number) == 0:
+                        break
+                    else:
+                        print("존재하지 않는 책 번호입니다.")
+                elif book_number.isdigit() == False:
                     print("존재하지 않는 책 번호입니다.")
-            elif book_number.isdigit() == False:
-                print("존재하지 않는 책 번호입니다.")
         # 구현중....
         
     
@@ -187,23 +191,19 @@ class LibrarySystem:
 # num10-----------------------------------------------------
     def search_books(self):
         search1 = input("검색할 키워드를 입력해주세요.[0.취소하기] : ")
-        if search1 ==0:
+        list1 = []
+        find1 = ""
+        if search1 == 0:
             pass
         else:
-            search_list = []
-            key_list = []
-            search1.lower()
-            for value in self.books:
-                key_list.append(value)           
-            for book_find in key_list:
-                if search1 in book_find:
-                    search_list.append(book_find)
-                else:
-                    pass
-            if len(search_list) > 0:
-                print(f"검색된 책은 {search_list[0]}입니다.")
-            else:
-                print("검색된 책은 없습니다.") # 구현중
+            for values in self.books:
+                list1.append(list(values.values()))
+            for a in list1:
+                if search1 in a:
+                    find1 = search1
+            print(find1)
+                    
+        
 
 # num0-----------------------------------------------------
     def logout(self):
