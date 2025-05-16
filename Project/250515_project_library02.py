@@ -287,7 +287,7 @@ while True:
         num1.rent_me()
 
     elif data1 == "10":
-        num1.search_books() #아직..
+        num1.search_books() #아직..d
 
     elif data1 == "0":
         logout1 = num1.logout()
