@@ -376,29 +376,37 @@ user1.borrow_book(book1)  #→ "정연우님이 '1984'를 대출했습니다."
 user1.borrow_book(book1)  #→ "이미 대출된 책입니다."
 '''
 
-
+'''
 class BankAccount:
     
     def __init__(self, owner, balance):
         self.owner = owner
         self.balance = balance
-        owner_list = []
-        owner_list.append({self.owner:self.balance})
+        self.list1 = []
 
-    def transfer_to(self, to_owner, won1):
-        self.balance = self.balance - won1
+    def transfer_to(self, other_account, amount):
+        self.balance = self.balance - amount
+        self.list1.append(-amount)
         
-    def withdraw(self, won2):
-        self.balance
+    def withdraw(self, amount):
+        self.balance = self.balance + amount
+        self.list1.append(amount)
+    
+    # def deposit(amount):
 
-
+    def get_log(self):
+        for num in self.list1:
+            if num >= 0:
+                print(f"{abs(num)}원을 {acc1.owner}로부터 받음")
+            elif num <= 0:
+                print(f"{abs(num)}원을 {acc2.owner}에게 이체함")
+        
+        
 
 
 acc1 = BankAccount("김영희", 1000)
 acc2 = BankAccount("이철수", 500)
 
-
-'''
 acc1.transfer_to(acc2, 300)
 acc2.withdraw(100)
 
@@ -406,15 +414,124 @@ acc1.get_log() # → ["300원을 이철수에게 이체함"]
 acc2.get_log() # → ["300원을 김영희로부터 받음", "100원 출금함"]
 '''
 
+class Bank:
+    # 인스턴스 삽입
+    def __init__(self, name, account_num, money):
+        self.name = name
+        self.account_num = int(account_num)
+        self.money = int(money)
+        self.logg = []
+        self.data = [{1155:"김철수"},{5252:"안영희"}]
+        self.data.append({self.account_num:self.name})
 
-def a(x):
-    return x **2
+    # 잔액확인
+    def check(self):
+        print(f"{self.name}님의 계좌번호 {self.account_num}의 잔액은 {format(self.money,",")}원 입니다.")
 
-def b(x):
-    return x **3
+    # 계좌이체
+    def to_bank(self):
+        to_account = input("계좌이체 할 계좌번호를 입력해주세요. : ")
+        to_money = input("이체 할 금액을 작성해주세요. : ")
+        self.tnf = False
+        for find_name in self.data:
+            if int(list(find_name.keys())[0]) == int(to_account):
+                self.ac_name = str(list(find_name.values())[0])
+        for find_money in self.data:
+            if int(to_account) in find_money:
+                self.tnf = True
+            else:
+                self.tnf = False
+        if self.tnf == True:
+            self.money = self.money - int(to_money)
+            self.logmoney = {self.ac_name:-int(to_money)}
+            self.logg.append(self.logmoney)
+            print(f"{self.ac_name} 님에게 {to_money}원을 이체했습니다.")
+        else:
+            print("올바르지 않은 계좌번호입니다.")
+
+    # 기록조회
+    def loging(self):
+        if len(self.logg) == 0:
+            print("거래 기록이 없습니다.")
+        else:
+            for logg in self.logg:
+                num = 1
+                if int(list(logg.values())[0]) < 0:
+                    print(f"{num}. 출금 : {list(logg.keys())[0]}님 에게 {abs(list(logg.values())[0])}원 송금")
+                    num += 1
+                elif int(list(logg.values())[0]) >= 0:
+                    print(f"{num}. 입금 : {list(logg.keys())[0]}님 에게서 {abs(list(logg.values())[0])}원 입금")
+                    num += 1
+
+    # 관리계좌 조회
+    def ac_find(self):
+        print("해당 권한은 관리자용 입니다.")
+        print("은행에서 관리중인 계좌 조회")
+        for i,v in enumerate(self.data,1):
+            print(f"{i}. {v}")
 
 
-def cal(f, ff, x):
-    return f(x) + f(x)
 
-cal(a,b,2)
+
+    # 계좌 만들기
+    # def start(self):
+    #     print("계좌 만들기 서비스입니다.")
+    #     st_name = input("본인 이름을 입력해주세요. : ")
+    #     st_money = input("입금 해놓을 금액을 작성해주세요. : ")
+
+    #     st_account = random.randint(3000,7000)
+    #     self.data.append({st_name:st_account})
+
+    #     user1 = Bank(st_name,st_account,st_money)
+
+
+
+import random
+
+
+user1 = Bank("김철수", 1155, 1000)
+user2 = Bank("안영희", 5252, 1500)
+
+
+print("로그인 후 사용해주세요.")
+print("계좌 만들기 서비스입니다.")
+st_name = input("본인 이름을 입력해주세요. : ")
+st_money = input("입금 해놓을 금액을 작성해주세요. : ")
+st_account = random.randint(3000,7000)
+user1 = Bank(st_name,st_account,st_money)
+print(f"새롭게 생성된 {st_name}님의 계좌번호는 {st_account}입니다.")
+
+
+
+
+print(f'''
+반갑습니다.
+야호 은행시스템입니다!
+사용하실 번호를 입력해주세요!''')
+
+while True:
+    print(f'''
+------시스템 번호-------
+1. 계좌 잔액 조회
+2. 기록 조회
+3. 송금하기
+4. 관리계좌 조회(관리자용)
+0. 종료하기    
+''')
+    
+    select1 = input("번호를 선택해주세요. : ")
+    if select1 == "1":
+        user1.check()
+    elif select1 == "2":
+        user1.loging()
+    elif select1 == "3":
+        user1.to_bank()
+    elif select1 == "4":
+        user1.ac_find()
+    elif select1 == "0":
+        out1 = input("정말 종료하시겠습니까? [1.네/2.아니오]")
+        if out1 == "1":
+            break
+
+print("안녕히 가세요.~")
+
