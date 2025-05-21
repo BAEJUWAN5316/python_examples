@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>행간,자간 조정하기</title>
+    <style>
+      html {
+        font-size: 24px;
+      }
+      .line-height {
+        line-height: 1.5;
+        /* 브라우저 16px *1.5 했다는 뜻! */
+      }
+      .letter-spacing {
+        letter-spacing: 1.5em;
+        letter-spacing: 0.3em;
+        /* em = 부모요소의 배수 = 24px * 0.3 */
+        letter-spacing: -0.05em;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="letter-spacing">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur exercitationem consectetur porro, ipsa dignissimos atque, iste tenetur, consequuntur natus inventore officia. Perspiciatis tenetur numquam sit libero corrupti quia unde soluta.</p>
+    <p class="line-height">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis laborum ut beatae animi delectus exercitationem laudantium magnam vel deserunt, sequi voluptates, consectetur dolor dolorum ipsum facilis quae praesentium minima alias.</p>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>박스모델</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .box {
+        box-sizing: border-box;
+        /* 박스사이징을 최상단에 써놓고 시작하면 쉽다 */
+        background-color: pink;
+        width: auto;
+        height: auto;
+        height: 500px;
+        height: 500px;
+        padding: 30px 20px 10px 5px;
+        padding: 10px 20px;
+        /* 시계방향별로 여백 작성! */
+        /* padding: 10px > 상하좌우 동일한 여백 */
+        /* padding 10px 20px > 상 하 여백 작성 */
+        /* margin: 50px;
+        margin-bottom: 10px;
+        margin-top: 30px;
+        margin-left: 50px;
+        /* text-align: center; */
+        /* 이건 인라인 요소 안에 블럭요소를 조절하는 것! */
+        border-top: 2px dashed red;
+        border-right: 3px dotted green;
+        border-bottom: 4px double blue;
+        border-left: 5px groove yellow;
+      }
+      .center {
+        box-sizing: border-box;
+        width: 500px;
+        height: 500px;
+        background-color: pink;
+        text-align: center;
+        margin: auto;
+        margin-left: auto;
+        /* css에서 요소를 가운데 정렬하는 가장 일반적인 방법 */
+        /* 브라우저가 사용 가능한 공간을 계산, 그 계산된 값을 */
+        /* 좌우에 자동으로 균등하게 분배한다! */
+        border-radius: 8px;
+        border-radius: 10px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
+      corrupti praesentium ad temporibus dolore, quidem veritatis quasi, eveniet
+      nam nulla quos culpa rerum molestiae accusantium ullam ratione minima,
+      soluta repudiandae!
+    </div>
+    <!-- <br> -->
+    <!-- <span class="box">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate aperiam error optio necessitatibus accusantium dolorem, mollitia suscipit fugit? Ad velit porro, magni asperiores officia facilis sint sunt dolorum? Voluptas, odio?</span> -->
+    <!-- span태그는 인라인이라 그 콘텐츠만큼만 영역이 지정된다! -->
+    <!-- 박스 값을 지정해줘도 박스 크기가 적용이 안 된다! -->
+    <div>
+      <div class="center">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
+        dolorem consequuntur ipsum minima facere est laborum ut iste ea vero
+        voluptate, molestiae ipsa assumenda, ullam similique? Soluta quidem
+        recusandae reprehenderit.
+      </div>
+    </div>
+  </body>
+</html>
