@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flex</title>
+    <style>
+      .container {
+        background-color: #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        flex-direction: column-reverse;
+        flex-direction: row-reverse;
+        flex-direction: row;
+
+        justify-content: flex-start;
+        justify-content: flex-end;
+        justify-content: center;
+        justify-content: space-between;
+        /* 아이템 사이에 동일한 간격 */
+        /* 스페이스 비트윈은 매우 유용하다! 아이템 두 개만 두고 양 옆으로 벌릴 때! */
+        justify-content: space-around;
+        /* 아이템 주변에 동일한 간격 */
+        justify-content: space-evenly;
+        /* 아이템 주변과 시작, 끝에 동일한 간격 설정 */
+        justify-content: center;
+        height: 800px;
+
+        /* 교차축 정렬 */
+        align-items: center;
+        align-items: flex-start;
+        align-items: flex-end;
+        align-items: stretch;
+        /* height값을 지정 안 해주면 교차축 전체를 차지하게 만든다! */
+        align-items: center;
+        /* 텍스트의 기준선에 정렬! */
+        gap: 10px;
+        /* 간격 */
+        flex-wrap: nowrap; 
+        /* 기본값 */
+        flex-wrap: wrap;
+        /* 창을 조절 할 때 아이템이 줄어들지 않고 다음 줄로 내려감 */
+      }
+      .item {
+        width: 100px;
+        height: 100px;
+        background-color: tomato;
+        border: 1px solid saddlebrown;
+      }
+      .center {
+        /* 무언가를 가운데 정렬 할 때 이렇게!! */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* .first {
+        font-size: 30px;
+      }
+      .last {
+        font-size: 50px;
+      } */
+    </style>
+  </head>
+  <body>
+    <h1>Flexbox</h1>
+    <div class="container">
+      <div class="item first">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item last">5</div>
+      <div class="item first">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item last">5</div>
+      <div class="item first">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item last">5</div>
+    </div>
+  </body>
+</html>

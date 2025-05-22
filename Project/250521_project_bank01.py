@@ -1,4 +1,5 @@
-import json
+import json #json 파일 저장용
+import hashlib #공인인증서 비밀번호 암호화
 
 with open("certs.json","r",encoding="utf-8") as f:
     dict1 = json.load(f)
@@ -47,7 +48,8 @@ class LoginManager:
                     self.out_spe = True
             if self.out_num == True and self.out_eng == True and self.out_spe == True:
                 print("비밀번호 설정이 완료되었습니다.")
-                dict_up = {data1:data2}
+                hashed_pw = hashlib.sha256(data2.encode()).hexdigest()
+                dict_up = {data1:hashed_pw}
                 dict1.update(dict_up)
                 break
             elif self.out_num == False and self.out_eng == True and self.out_spe == True:
@@ -63,9 +65,9 @@ class LoginManager:
 
     def verify_password(self): #공인인증서 로그인
         if self.login == True:
-            print("이미 로그인상태입니다.")
+            print("\n이미 로그인상태입니다.")
         elif self.login == False:
-            print("공인인증서 로그인을 진행합니다.")
+            print("\n공인인증서 로그인을 진행합니다.")
             while True:
                 data1 = input("이름을 입력해주세요. [0.나가기] : ")
                 if data1 == "0":
@@ -80,31 +82,32 @@ class LoginManager:
                 if data1 == "0":
                     break
                 data2 = input("비밀번호를 입력해주세요. [0.나가기] : ")
+                hashed_pw = hashlib.sha256(data2.encode()).hexdigest()
                 if data2 == "0":
                     break
-                elif dict1.get(data1) == data2:
-                    print("로그인 성공")
+                elif dict1.get(data1) == hashed_pw:
+                    print("\n로그인 성공")
                     self.login = True
                     break
                 else:
-                    print("비밀번호를 다시 입력해주세요.")
+                    print("\n비밀번호를 다시 입력해주세요.")
 
     def logout_user(self): #공인인증서 로그아웃
         if self.login == False:
-            print("이미 로그아웃상태입니다.")
+            print("\n이미 로그아웃상태입니다.")
         elif self.login == True:
             data3 = input("\n로그아웃 하시겠습니까? [1.예/2.아니오] : ")
             if data3 == "1":
-                print("로그아웃이 완료되었습니다.")
+                print("\n로그아웃이 완료되었습니다.")
                 self.login = False
             elif data3 == "2":
-                print("로그아웃이 취소되었습니다.")
+                print("\n로그아웃이 취소되었습니다.")
 
     def test_bank(self):
         if self.login == False:
-            print("공인인증서 로그인 후 이용해주세요.")
+            print("\n공인인증서 로그인 후 이용해주세요.")
         elif self.login == True:
-            print("개발중입니다..")
+            print("\n개발중입니다..")
 
 user1 = LoginManager()
 
