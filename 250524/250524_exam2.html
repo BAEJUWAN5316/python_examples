@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        background-color: rgb(56, 76, 133);
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 1fr 6fr 1fr;
+        text-align: center;
+        color: black;
+        padding: 10px;
+      }
+      .item1 {
+        height: 60px;
+        background-color: rgb(223, 235, 66);
+        grid-area: 1 / 1 / 2 / 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .item2 {
+        background-color: rgb(158, 243, 46);
+        grid-area: 2 / 1 / 3 / 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .item3 {
+        background-color: rgb(69, 169, 199);
+        grid-area: 2 / 2 / 3 / 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .item4 {
+        background-color: brown;
+        grid-area: 3 / 1 / 4 / 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item1">head</div>
+      <div class="item2">body</div>
+      <div class="item3">section</div>
+      <div class="item4">footer</div>
+    </div>
+  </body>
+</html>
