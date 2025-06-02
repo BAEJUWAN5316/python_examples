@@ -14,6 +14,7 @@ class Item(BaseModel):
     name: str #이건 필수값이 된다!
     description: Optional[str] = None #descriotion은 빈 값이 들어가도 된다 라는 뜻
     price: float
+    active: bool = True
 
 
 class ItemUpdate(BaseModel): #업데이트 할 때의 틀 설정
@@ -56,11 +57,70 @@ def update_item(item_id: int, item:ItemUpdate):
     if item_id not in items:
         raise HTTPException(status_code=404, detail="Item not found")
     stored_item: Item = items[item_id]
+    print(
+        f"stored_item name={stored_item.name} price={stored_item.price} description={stored_item.description}"
+    )
     update_data = item.model_dump(exclude_unset=True)
     # update_data = item.dict
     # 글자에 줄이 그이면 쓸 수는 있지만 권장되지 않음! 이라는 뜻
     # 더 좋은 기능이 있으니까 그거 쓰라! 라는 뜻
-    # model_dump는 딕셔너리로 만들어주는 메서드
+    # model_dump는 딕트 타입으로 만들어주는 메서드
     # exclude_unset은 True인 값만 딕셔너리로 만들어주겠다! 라는 뜻
+    # 즉 none값은 update_data에 들어가지 않음!
+    print(update_data)
     
     updated_item = stored_item.model_copy(update=update_data)
+    # .model_copy(update=) 딕트타입에서 바뀐 부분만 덮어씌워주는 것!
+    print(f"update_item name={updated_item.name} price={updated_item.price} description= {updated_item.description}")
+
+    items[item_id] = updated_item
+    return updated_item
+
+    #model_dump와 model_copy는 BaseModel기능!
+
+@app.delete("/items/{item_id}")
+def delete_item(item_id: int):
+    if item_id not in items:
+        raise HTTPException(status_code=404, detail="Item not found")
+    
+    items.pop(item_id)
+    
+
+@app.put("items/{item_id}/active")
+def actve_onoff(item_id: int, item:ItemUpdate, response_model: Item, status: bool = None):
+    if status == True:
+        if items[item_id]["active"]  == True:
+            raise HTTPException(status_code=404, detail="status already activated")
+        stored_item: Item = items[item_id]
+        update_data = item.model_dump(exclude_unset=True)
+        updated_item = stored_item.model_copy(update=update_data)
+        items[item_id] = updated_item
+        return updated_item
+        
+    elif status == False:
+        if items[item_id]["active"]  == False:
+            raise HTTPException(status_code=404, detail="status already deactivated")
+        stored_item: Item = items[item_id]
+        update_data = item.model_dump(exclude_unset=True)
+        updated_item = stored_item.model_copy(update=update_data)
+        items[item_id] = updated_item
+        return updated_item
+# 위는 내가 한 풀이
+# 아래는 정답
+
+@app.put("/items/{item_id}/active")
+def update_active(item_id: int, status: bool = True):
+    if item_id not in items:
+        raise HTTPException(status_code=404, detail="Item not found")
+    
+    stored_item: Item = items[item_id] #타입힌팅을 해줘야 active가 활성화된다
+
+    if stored_item.active == status:
+        raise HTTPException(status_code=400, detail="status already activated or deactivated")
+    
+    stored_item.active = status
+
+    return stored_item
+
+
+
