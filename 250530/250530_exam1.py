@@ -86,3 +86,13 @@ print(solution(list1))
 '''
 
 
+# 16 뮤라의 휴가 입력
+# list1 = ['20-01-2024', '12/15/2023', '2022.05.30']
+# def solution(data):
+#     pass
+
+# print(solution(list1))
+
+
+
+
