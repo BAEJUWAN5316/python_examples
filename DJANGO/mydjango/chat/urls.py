@@ -7,7 +7,13 @@ urlpatterns = [
     # 이 코드를 저장하시면 개발서버에서 index 함수를 찾지못해 오류가 발생할 것이지만,
     # 아래 chat/views.py 저장 후에는 해당 오류가 사라질 것입니다.
     path("", views.index),
-    path("messages/new/", views.chat_message_new)
+    path("messages/new/", views.chat_message_new),
+    path("puzzle/", views.puzzleroom_list),
+
+    # puzzle/ 주소에 문자열 패턴이 있고, 뒤에 /가 있으면
+    # /chat/puzzle/{name}/
+    # 아래에서 str은 정규표현식이다
+    path("puzzle/<str:name>/", views.puzzle_room) # 토이스토리 부분
 ]
 
 

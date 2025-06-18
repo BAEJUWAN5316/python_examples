@@ -10,28 +10,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-from environ import Env
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-env = Env()
-
-ENV_PATH = BASE_DIR / ".env"
-env.read_env(ENV_PATH, overwrite=True)
-
-# config/settings.py
-
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-coe^cdjtt_gvtlcrulucxboqj@fx__udnvjh4jixc_#v&vvz-c'
+SECRET_KEY = 'django-insecure-_+(k6!ax&i++)kptugjau7ue=4+t$jb-)k!=$0e@w19-s)@^ri'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -79,6 +68,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -131,15 +121,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# import os
-# os.environ["OPENAI_API_KEY"]
-
-# 위는 파이썬에서 기본으로 지원하는 환경변수 조회하는 것
-# 아래는 django-environ을 사용하여 환경변수 조회하는 것
-# django-environ을 통해서 환경변수 조회 : 장고 친화적인 기능이 많다
-
-# 환경변수에 OPENAI_API_KEY가 있으면 반환, 없으면 NONE
-OPENAI_API_KEY = env.str('OPENAI_API_KEY', default=None)
-# 환경변수에 UPSTAGEAI_API_KEY가 있으면 반환, 없으면 NONE
-UPSTAGE_API_KEY = env.str('UPSTAGE_API_KEY', default=None)
