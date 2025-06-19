@@ -16,6 +16,7 @@ urlpatterns = [
     # path("puzzle/<str:name>/", views.puzzleroom_play),  
     path("puzzle/<int:id>/", views.puzzleroom_play),  # 토이스토리 부분
     # 지금은 숫자만 받을 거니 int로 가자
-    
-    path("puzzle/new", views.puzzleroom_new)
+
+    path("puzzle/new", views.puzzleroom_new),
+    path("puzzle/<int:id>/edit", views.puzzleroom_edit),
 ]

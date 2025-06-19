@@ -3,6 +3,7 @@
 from django.http import HttpRequest, HttpResponse, Http404
 from django.shortcuts import render, redirect
 from chat.models import PuzzleRoom
+from chat.forms import PuzzleRoomForm, PuzzleRoomEditForm
 
 
 # django view : http 요청을 받아 요청을 처리하는 함수
@@ -74,7 +75,7 @@ def puzzleroom_list(request):
 
 
 # import코드는 최상단에 원래 써주세요!
-from chat.forms import PuzzleRoomForm
+
 
 # 1개의 puzzleroo 생성을 위해 2번의 요청을 받을 예정
 # 1> 빈 입력 서식을 보여줘야 합니다.
@@ -103,6 +104,23 @@ def puzzleroom_new(request: HttpRequest) -> HttpResponse:
             pass #에러나면 아래로 그냥 진행 아래에서 에러 출력기능도 어차피 있음
 
     # 장고의 문화대로, 파일명과 view 이름을 쓰고 있습니다
+    return render(request, "chat/puzzleroom_form.html", {
+        "form": form,
+    })
+
+def puzzleroom_edit(request: HttpRequest, id: int) -> HttpResponse:
+    # 수정 대상을 데이터베이스에서 조회하기
+    room = PuzzleRoom.objects.get(id=id)
+
+    if request.method == "GET": 
+        form = PuzzleRoomEditForm(instance=room)
+
+    else: 
+        form = PuzzleRoomEditForm(instance=room, data=request.POST, files=request.FILES )
+        if form.is_valid():
+            form.save() 
+            return redirect("/chat/puzzle/") 
+
     return render(request, "chat/puzzleroom_form.html", {
         "form": form,
     })
