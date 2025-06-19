@@ -1,7 +1,7 @@
 # chat/views.py
 
 from django.http import HttpRequest, HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from chat.models import PuzzleRoom
 
 
@@ -71,3 +71,38 @@ def puzzleroom_list(request):
         template_name="chat/puzzleroom_list.html",
         context={"puzzleroom_list": qs},
     )
+
+
+# import코드는 최상단에 원래 써주세요!
+from chat.forms import PuzzleRoomForm
+
+# 1개의 puzzleroo 생성을 위해 2번의 요청을 받을 예정
+# 1> 빈 입력 서식을 보여줘야 합니다.
+# 2> 유저가 서식에 값을 채우고 전송(저장) 버튼을 눌렀을 때, 
+# 유저의 입력값을 전송합니다 (반복)
+def puzzleroom_new(request: HttpRequest) -> HttpResponse:
+    # 1> 빈 입력 서식을 보여주겠습니다.
+
+    if request.method == "GET": # "GET" or "POST" 뿐
+        form = PuzzleRoomForm()
+
+    else: # "POST" : 유저가 입력한 값에 대한 유효성 검사, 통과되면 저장, 실패면 에러응답
+        request.POST # POST 요청에서의 데이터(파일 제외) > 파일 제외 모두
+        request.FILES # POST 요청에서의 데이터(파일 만) > 유저가 올린 파일
+
+        # Form에게 유저의 모든 입력 데이터를 전달
+        form = PuzzleRoomForm(data=request.POST, files=request.FILES )
+        # form : 유저가 전달한 값을 모두 알고 있습니다.
+        # 입력 필드 구성도 모두 알고있습니다.
+
+        # 단 1개의 유효성 검사라도 실패하면, False 반환, 모두 통과하면 True 반환
+        if form.is_valid(): # 호출 즉시 유효성 검사를 수행합니다
+            form.save() # 유저가 입력한 값을 데이터베이스에 저장합니다(ModelForm의 기능)
+            return redirect("/chat/puzzle/") #django.shortcuts import에 redircet 추가
+        else:
+            pass #에러나면 아래로 그냥 진행 아래에서 에러 출력기능도 어차피 있음
+
+    # 장고의 문화대로, 파일명과 view 이름을 쓰고 있습니다
+    return render(request, "chat/puzzleroom_form.html", {
+        "form": form,
+    })
