@@ -50,27 +50,12 @@ def chat_message_new(request: HttpRequest) -> HttpResponse:
 # 다양하게 올 name인자를 받아줘야한다
 # 없는 데이터를 요청했는데 500서버로 나오면 억울함!
 # 404로 응답이 오는게 맞다
-def puzzle_room(request, name):
-    # image_url/level 설정을 view단에 하드코딩 하는게 아니라
-    # 유저가 이미지와 레벨을 설정해서 게임방을 만들 수 있으면 좋겠다!
-    # > 이러한 건 보통은 데이터베이스에 저장/수정하고 불러서 활용합니다.
-    # 보통의 애플리케이션들은 대개 데이터베이스 중심의 소프트웨어입니다
+def puzzleroom_play(request: HttpRequest, id: int) -> HttpResponse:
 
-    try:
-        image_url = {
-            "mario": "/static/chat/mario.jpg",
-            "toy": "/static/chat/toy-story.jpg",
-            "openai-1": "/static/chat/openai-1.png",
-        }[name]
-    except KeyError:
-        # from Http404부분 해줘야한다!
-        raise Http404(f"not found room : {name}")
+    room = PuzzleRoom.objects.get(id=id)
+    image_url = room.image_file.url
+    level = room.level
 
-    level = 3  # or 4, 5
-
-    # name에 올 toy, mario, game... 등등
-    # 반드시 toy만 오는게 아니기 때문에 신뢰 해서는 안된다
-    # 항사 우리가 원하는 규칙에 맞는지 검사해야합니다
     return render(
         request,
         template_name="chat/puzzle.html",

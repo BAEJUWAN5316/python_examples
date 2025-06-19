@@ -12,5 +12,8 @@ urlpatterns = [
     # puzzle/ 주소에 문자열 패턴이 있고, 뒤에 /가 있으면
     # /chat/puzzle/{name}/
     # 아래에서 str은 정규표현식이다
-    path("puzzle/<str:name>/", views.puzzle_room),  # 토이스토리 부분
+    # 가급적 이 정규표현식은 타이트하게 호출 가능하게만 지정하도록 추천
+    # path("puzzle/<str:name>/", views.puzzleroom_play),  
+    path("puzzle/<int:id>/", views.puzzleroom_play),  # 토이스토리 부분
+    # 지금은 숫자만 받을 거니 int로 가자
 ]
