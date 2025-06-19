@@ -9,11 +9,8 @@ urlpatterns = [
     path("", views.index),
     path("messages/new/", views.chat_message_new),
     path("puzzle/", views.puzzleroom_list),
-
     # puzzle/ 주소에 문자열 패턴이 있고, 뒤에 /가 있으면
     # /chat/puzzle/{name}/
     # 아래에서 str은 정규표현식이다
-    path("puzzle/<str:name>/", views.puzzle_room) # 토이스토리 부분
+    path("puzzle/<str:name>/", views.puzzle_room),  # 토이스토리 부분
 ]
-
-

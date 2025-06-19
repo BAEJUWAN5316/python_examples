@@ -7,6 +7,7 @@ from .models import PuzzleRoom
 # PuzzleRoom 모델을 admin에 등록하면, 이 것 만으로 관리 UI제공
 # > 장고의 독보적인 기능.
 
+
 @admin.register(PuzzleRoom)
 class PuzzleRoomAdmin(admin.ModelAdmin):
     pass
