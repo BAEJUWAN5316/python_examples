@@ -108,6 +108,14 @@ def puzzleroom_new(request: HttpRequest) -> HttpResponse:
         "form": form,
     })
 
+from django.views.generic import CreateView
+
+puzzleroom_new = CreateView.as_view(
+    model=PuzzleRoom,
+    form_class=PuzzleRoomForm,
+    success_url="/chat/puzzle/",
+)
+
 def puzzleroom_edit(request: HttpRequest, id: int) -> HttpResponse:
     # 수정 대상을 데이터베이스에서 조회하기
     room = PuzzleRoom.objects.get(id=id)
