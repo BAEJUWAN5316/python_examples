@@ -1,0 +1,17 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>PuzzleRoom Form</title>
+</head>
+<body>
+    <h1>PuzzleRoom Form</h1>
+    <form action="" method="post" 
+            enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit">
+    </form>
+</body>
+</html>

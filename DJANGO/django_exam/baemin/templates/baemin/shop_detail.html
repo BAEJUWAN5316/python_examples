@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>{{ shop.name }}</h2>
+
+    <img src="{{ image_url }}" alt="" width="300"> <br>
+
+    {{ shop.description }}
+
+    <hr />
+
+    <a href="/baemin/">목록으로</a>
+    <a href="/baemin/{{ shop.pk }}/reviews/new/">리뷰 쓰기</a>
+
+    <h3>리뷰 목록</h3>
+
+    {% for review in review_list %}
+        <div class="review-wrap">
+            {{ review.content }}
+            ({{ review.rating }})
+            <a href="/baemin/{{ shop.pk }}/reviews/{{ review.pk }}/edit/">
+                Edit
+            </a>
+            <a href="/baemin/{{ shop.pk }}/reviews/{{ review.pk }}/delete/"
+               class="btn-review-delete text-danger"
+            >
+                Delete
+            </a>
+        </div>
+    {% empty %}
+        <div>등록된 리뷰가 없습니다. :-(</div>
+    {% endfor %}
+</body>
+</html>

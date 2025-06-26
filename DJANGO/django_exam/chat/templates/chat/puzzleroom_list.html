@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for room in puzzleroom_list %}
+        {{ room.id }} <br>
+        {{ room.created_at }} <br>
+        {{ room.updated_at }} <br>
+        {{ room.level }} <br>
+        <img src="{{ room.image_file.url }}" alt="">
+        <hr>
+    {% endfor %}
+    
+</body>
+</html>
