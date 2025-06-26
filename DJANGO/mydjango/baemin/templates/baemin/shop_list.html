@@ -1,0 +1,18 @@
+{% extends "baemin/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <h1>Shop List</h1>
+
+    {{ variable_name }}
+
+    {% for shop in shop_list %}
+        <div>
+            <a href="/baemin/{{ shop.pk }}/">
+                {{ shop.name }}
+            </a>
+            
+            
+        </div>
+    {% endfor %}
+{% endblock %}

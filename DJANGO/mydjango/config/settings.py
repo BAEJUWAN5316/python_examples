@@ -34,9 +34,12 @@ MEDIA_ROOT = BASE_DIR / "media"
 SECRET_KEY = "django-insecure-coe^cdjtt_gvtlcrulucxboqj@fx__udnvjh4jixc_#v&vvz-c"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list(
+    "ALLOWED_HOSTS", 
+    default=["127.0.0.1"],
+    )
 
 
 # Application definition
@@ -50,7 +53,9 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # third apps
     "debug_toolbar",
+    "django_bootstrap5",
     # local apps
+    "baemin",
     "blog",
     "chat",
 ]
@@ -73,7 +78,10 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        # 여기에 넣자
+        "DIRS": [
+            BASE_DIR / "templates",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -155,3 +163,8 @@ UPSTAGE_API_KEY = env.str("UPSTAGE_API_KEY", default=None)
 #  - 장고 서버를 구동한 컴퓨터에서 직접 접속했을 때에만 DDT를 보여주겠다.
 #  - 다른 컴퓨터에서 접속했을 때에는 DDT가 보여지지 않아요.
 INTERNAL_IPS = ["127.0.0.1"]
+
+# DDT 추가 설정
+#  - 기본 구성으로는 inter ips에 지정된 주소로 접속했을 때는 무조건 보여준다
+#  - 커스텀으로 파이썬 함수를 통해 보여줄 지 말지 결정해줄 수 있다
+#  - ngrok을 통한 요청인지 여부를 판단해서 결정해줄 수 있음

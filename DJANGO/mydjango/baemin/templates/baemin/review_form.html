@@ -1,0 +1,14 @@
+{% extends "baemin/base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<form action="" method="post" 
+        enctype="multipart/form-data"
+        novalidate>
+    {% csrf_token %}
+
+    {% bootstrap_form form %}
+
+    <input type="submit" class="btn btn-primary">
+</form>
+{% endblock %}
