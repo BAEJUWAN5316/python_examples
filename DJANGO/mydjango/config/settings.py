@@ -45,6 +45,7 @@ ALLOWED_HOSTS = env.list(
 # Application definition
 
 INSTALLED_APPS = [
+    # django apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -54,7 +55,9 @@ INSTALLED_APPS = [
     # third apps
     "debug_toolbar",
     "django_bootstrap5",
+    "django_extensions",
     # local apps
+    "accounts",
     "baemin",
     "blog",
     "chat",

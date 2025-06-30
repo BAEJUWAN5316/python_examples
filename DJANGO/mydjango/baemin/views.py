@@ -1,24 +1,56 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView
 from .models import Shop, Review
 from .forms import ReviewForm
 from django.http import Http404
 from django.http import HttpRequest, HttpResponse
 
+class ShopListView(ListView):
+    model = Shop
+    paginate_by = 3
+    # 아래 설정이 디폴트 설정
+    # 아무것도 쓰지 않으면 아래와 같아진다!
+    # template_name = "baemin/shop_list.html"
+    # 요청에 따라 사용하는 탬플릿을 변경해봅시다
+
+    def get_template_names(self):
+        if "naked" in self.request.GET:
+            return "baemin/_shop_list.html"
+        # 아래의 코드는 원래 매서드의 기본 동작을 수행
+        return super().get_template_names()
+
+
+# 클래스를 통해서 새로운 view 함수 생성하기!
+# 아래는 코드라기 보다 설정에 가까운 내용!
+shop_list = ShopListView.as_view()
 
 # 최신의 가게 목록 페이지를 보여줄 거예요/
 # - 최신이ㅡ 데이터는 DB안에 있죠 그러니 매번 DB 조회를 할 겁니다
-def shop_list(request):
-    # 데이터베이스에서 baemin_shop테이블의 모든 레코드를
-    # 조회할 준비(아직 데이터를 가져오진 않았습니다)
-    qs = Shop.objects.all() # QuerySet타입!
+# def shop_list(request):
+#     # 데이터베이스에서 baemin_shop테이블의 모든 레코드를
+#     # 조회할 준비(아직 데이터를 가져오진 않았습니다)
+#     qs = Shop.objects.all() # QuerySet타입!
 
-    return render(
-        request, 
-        template_name="baemin/shop_list.html",
-        context={
-            "shop_list":qs,
-        })
+#     # page = 3
+#     page = int(request.GET.get("page", 1)) #쿼리스트링 값은 기본적을 str타입!
+#     paginate_by = 5 # 몇 개의 게시물씩 끊어서 페이징 하겠는지 설정!
+
+#     # qs = qs[0:5] # 문자열의 슬라이싱과 동일, 1페이지: 처음 5개
+#     # qs = qs[5:10] # 2페이지
+#     # qs = qs[10:15] # 3페이지
+#     # 이런 식이니까 아래처럼 하면 게시물에 맞춰서 계속 나뉘어 진다
+    
+#     start_index = (page - 1) * paginate_by
+#     end_index = page * paginate_by
+#     qs = qs[start_index:end_index]
+
+#     return render(
+#         request, 
+#         template_name="baemin/shop_list.html",
+#         context={
+#             "shop_list":qs,
+#         })
 
 # TODO: baemin/shop_list.html 템플릿을 만들어보기. 하얀 배경도 OK. chatgpt 등을 통한 코드 생성도 OK
 
@@ -56,6 +88,8 @@ def shop_detail(request, pk):
     )
 
 
+# 반드시 로그인 상태에서만 리뷰 폼이 보여져야합니다
+# @login_required > 이거를 데코레이터로 적용하면 로그인 상황이 아니면 자동으로 로그인 페이지로 보냅니다
 def review_new(request, shop_pk):
     # shop = Shop.objects.get(pk=shop_pk) 
 
@@ -66,8 +100,10 @@ def review_new(request, shop_pk):
     else:
         form = ReviewForm(data=request.POST, files=request.FILES)
         if form.is_valid(): # > 입력받은 모든 값에 대해 유효성 검사를 싹 다 해준다
-            unsaved_comment: Review = form.save(commit=False) 
+            unsaved_comment: Review = form.save(commit=
+                                                False) 
             unsaved_comment.shop = Shop.objects.get(id=shop_pk)
+            # unsaved_comment.user = request.user
             unsaved_comment.save()
 
             messages.success(request, "고객님의 리뷰에 감사드립니다! ;")

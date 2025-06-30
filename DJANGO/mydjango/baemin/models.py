@@ -9,6 +9,9 @@ class Shop(models.Model):
     description = models.TextField() # 길이제한 없는 것
     # photo = models.FileField() #모든 포맷 파일 가능
     photo = models.ImageField() # 이미지 파일만 가능
+    
+    class Meta:
+        ordering = ["-id"] #정렬 지정은 항상 하자!
 
 # 장고의 유효성 검사 함수 인자는 항상 1개만 받고요
 # 그 값이 정해진 규칙에서 벗어날 때 ValidatrError을 발생
@@ -38,6 +41,7 @@ validator_min_3 = make_validator_min(3)
 
 #  N측에 1에 대한 외래키 필드를 추가
 class Review(models.Model):
+    # user = models.ForeignKey("auth.User", on_delete=models.CASCADE)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     content = models.TextField()
     # rating = models.IntegerField() # 음수/양수 다 담을 수 있음

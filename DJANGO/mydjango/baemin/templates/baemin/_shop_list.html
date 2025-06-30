@@ -1,0 +1,30 @@
+    <h2>page: {{ request.GET.page }}</h2>
+
+    <h1>Shop List</h1>
+
+    {{ variable_name }}
+
+    {% for shop in shop_list %}
+        <div>
+            <a href="/baemin/{{ shop.pk }}/">
+                {{ shop.name }}
+            </a>
+            {{ shop.description }}
+            <img src="{{ shop.photo.url }}" alt="" width="100px">
+            
+        </div>
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a hx-get="?page={{ page_obj.next_page_number }}&naked=1"
+        hx-trigger="revealed"
+        hx-target="this"
+        hx-swap="outerHTML"
+    >
+        로딩 중...
+    </a>
+    {% else %}
+        <div class="alert alert-info">
+            끝까지 다 보셨습니다.
+        </div>
+    {% endif %}
