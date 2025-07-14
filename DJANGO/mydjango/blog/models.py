@@ -1,14 +1,28 @@
 from django.db import models
+from django.urls import reverse
 
+class PostQuerySet(models.QuerySet):
+    def draft(self):
+        return self.filter(status=Post.Status.DRAFT)
+    
+    def published(self):
+        return self.filter(status=Post.Status.PUBLISHED)
+    
+    def private(self):
+        return self.filter(status=Post.Status.PRIVATE)
 
 class Post(models.Model):
     # choices는 2개의 값으로 구성된 tuple의 리스트
-    STATUS_CHOICES = [
-        # 1번은 db에 저장될 값, 2번은 유저에게 보여질 값
-        ("draft", "임시"),
-        ("published", "공개"),
-        ("private", "비공개"),
-    ]
+    # STATUS_CHOICES = [
+    #     # 1번은 db에 저장될 값, 2번은 유저에게 보여질 값
+    #     ("draft", "임시"),
+    #     ("published", "공개"),
+    #     ("private", "비공개"),
+    # ]
+    class Status(models.TextChoices):
+        DRAFT = "draft", "임시"
+        PUBLISHED = "published", "공개"
+        PRIVATE = "private", "비공개"
 
     title = models.CharField(max_length=200)
     content = models.TextField()
@@ -18,13 +32,21 @@ class Post(models.Model):
         # 유저로부터의 선택지를 제공하고, 이외의 값에 대해 제한하는 것
         # 악의적인 목적으로 유저가 Form을 변조해서 다른 값을 보내더라도
         # 유효성 검사시에 다 걸러집니다.
-        choices=STATUS_CHOICES, 
-        default="draft")
+        choices=Status.choices, 
+        default=Status.DRAFT,
+        )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    objects = PostQuerySet.as_manager()
+
+
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self) -> str:
+        # Post 모델에 대한 detail 주소 문자열(/로 시작하는)을 반환하는 함수
+        return reverse("blog:post_detail", kwargs={"pk":self.pk})
     
 
 # 모델에 기본 키를 지정해서 기본키를 변경하는 방법이 있다.
@@ -49,3 +71,4 @@ class Comment(models.Model): #models의 모든 클래스는 상속을 받아야 
     content = models.CharField( #field의 속성을 선택할 수 있음 글자수 제한 등
         max_length=1000,
     )
+    tags = models.CharField(max_length=100, default="")

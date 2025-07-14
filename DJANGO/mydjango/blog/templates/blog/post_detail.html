@@ -15,6 +15,16 @@
     <hr>
     {# 이 URL에 오타가 있으면 안 된다! #}
     <a href="/blog/{{ post.id }}/comments/new">댓글 쓰기</a>
+    <hr>
+    {% for comment in comment_list %}
+        <div>
+            {{ comment.content }}
+
+            {% url 'blog:comment_edit' post_pk=post.pk pk=comment.pk as comment_edit_url %}
+
+            <a href="{{ comment_edit_url }}">수정</a>
+        </div>
+    {% endfor %}
 
 </body>
 </html>

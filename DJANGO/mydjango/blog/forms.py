@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment
+from .models import Comment, Post
 
 # forms.Form
 #  - get요청 : 지정된 필드 구성으로 유저에게 입력폼 html 생성
@@ -27,6 +27,12 @@ class CommentForm(forms.ModelForm):
         #  > views.py에서 form.save에 content만 저장을 시도한다
         # all에서 저장되던 id가 누락된 상태!
         # 그러니 views.py를 수정해주자
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = "__all__"
 
 
 
