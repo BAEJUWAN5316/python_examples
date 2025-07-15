@@ -1,8 +1,11 @@
 django~=5.2.0
 django-environ
+djangorestframework~=3.16.0
+
 pyhub-llm[all]
 
 django-debug-toolbar
 
 django-bootstrap5
 django-extensions
+

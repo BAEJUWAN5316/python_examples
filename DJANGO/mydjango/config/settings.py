@@ -56,11 +56,13 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "django_bootstrap5",
     "django_extensions",
+    "rest_framework",
     # local apps
     "accounts",
     "baemin",
     "blog",
     "chat",
+    "melon",
 ]
 
 MIDDLEWARE = [

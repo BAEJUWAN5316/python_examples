@@ -17,6 +17,7 @@ urlpatterns = [
     # - 1) Template를 통해 HTML 응답을 할까?
     # - 2) 다른 페이지로 이동을 시켜볼 수도 있겠습니다.
     path("", lambda request: redirect("/baemin/")), # 기본 페이지 설정
+    path("melon/", include("melon.urls")),
 ]
 
 # 유저가 업로드한 파일을 서빙하는 View 설정 (View <- 장고 개발서버에서 제공)
