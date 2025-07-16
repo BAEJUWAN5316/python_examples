@@ -1,6 +1,16 @@
 from django.db import models
 from django.urls import reverse
 
+# from django.contrib.auth.models import User
+# 장고에서 기본으로 지원하는 User모델
+# 추가기능을 넣고싶다면 수정도 가능하다
+# 단, 최초 migrate 하기 전에 수정하자.
+# 이후에도 할 수는 있지만 조금 복잡해서 학생은 db에러가 뜰 수 있다!
+# 매 요청을 처리할 때마다 db에서 관련 user를 조회합니다. request.user속성
+# 하지만 유저 관련 필드들은 별도의 모델로 관리하는 것을 추천합니다
+# auth라는 앱의 User라는 모델을 쓴다는 뜻
+
+
 class PostQuerySet(models.QuerySet):
     def draft(self):
         return self.filter(status=Post.Status.DRAFT)
@@ -23,6 +33,8 @@ class Post(models.Model):
         DRAFT = "draft", "임시"
         PUBLISHED = "published", "공개"
         PRIVATE = "private", "비공개"
+
+    author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
 
     title = models.CharField(max_length=200)
     content = models.TextField()
@@ -61,6 +73,12 @@ class Post(models.Model):
 class Comment(models.Model): #models의 모든 클래스는 상속을 받아야 한다!
     # 댓글 길이 제한을두지 않으려면 아래처럼
     # content = models.TextField()
+
+    author = models.ForeignKey("auth.User", on_delete=models.CASCADE, blank=False, null=False)
+    # blank=False, null=False 는 기본값.
+    # balnk는 form 입장에서 빈 입력필드를 허용할 지 여부
+    # null은 db입장에서 빈 값을 넣게 허용할지 여부
+    # 두 필드 모두 거짓이면 이 필드는 필수 필드가 된다!
 
     post = models.ForeignKey( #Post의 기본 키를 가리키는 필드
         Post,

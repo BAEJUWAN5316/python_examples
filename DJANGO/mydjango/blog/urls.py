@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from. import views
 
 # 장고의 urls.py에게 장고가 요구하는 것은 단 하나!
@@ -13,4 +13,5 @@ urlpatterns = [
     path("<int:pk>/", views.post_detail, name="post_detail"),
     path("<int:post_pk>/comments/new/", views.comment_new, name="comment_new"),
     path("<int:post_pk>/comments/<int:pk>/edit/", views.comment_edit, name="comment_edit"),
+    path("api/v1/", include("blog.api.v1"))
 ]
