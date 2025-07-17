@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # third apps
-    "debug_toolbar",
+    # "debug_toolbar",
     "django_bootstrap5",
     "django_extensions",
     "rest_framework",
@@ -66,9 +66,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # TODO: DEBUG 상황에서만 적용되도록 할 거예요.
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -173,3 +170,52 @@ INTERNAL_IPS = ["127.0.0.1"]
 #  - 기본 구성으로는 inter ips에 지정된 주소로 접속했을 때는 무조건 보여준다
 #  - 커스텀으로 파이썬 함수를 통해 보여줄 지 말지 결정해줄 수 있다
 #  - ngrok을 통한 요청인지 여부를 판단해서 결정해줄 수 있음
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_RENDERER_CLASSES': [
+#         'rest_framework.renderers.JSONRenderer',
+#         # 'rest_framework.renderers.BrowsableAPIRenderer',
+#     ]
+# }
+
+
+
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+
+    MIDDLEWARE = [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ] + MIDDLEWARE
+
+    DEFAULT_RENDERER_CLASSES = [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'blog.renderers.PandasXlsxRenderer'
+    ]
+
+else:
+    DEFAULT_RENDERER_CLASSES = [
+        'rest_framework.renderers.JSONRenderer',
+        'blog.renderers.PandasXlsxRenderer'
+    ]
+
+# <a href="/blog/api/v1/posts/?format=xlsx">엑셀 다운로드</a>
+# rederer를 이용하면 이렇게 a태그 이용해서 엑설파일 다운로드하기 가능
+
+# django rest framework
+# https://www.django-rest-framework.org/api-guide/renderers/
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
+
+    # 페이지 크기 전역 설정
+    "PAGE_SIZE": env.int("REST_FRAMEWORK_PAGE_SIZE", default=10),
+    # 페이지네이션 전역 설정
+    # "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "DEFAULT_PAGINATION_CLASS": "blog.pagination.PkCursorPagination",
+}
+
+

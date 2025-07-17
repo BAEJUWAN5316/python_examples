@@ -23,4 +23,8 @@ urlpatterns = [
 # 유저가 업로드한 파일을 서빙하는 View 설정 (View <- 장고 개발서버에서 제공)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-urlpatterns += debug_toolbar_urls()
+
+from django.apps import apps
+
+if apps.is_installed("debug_toolbar"):
+    urlpatterns += debug_toolbar_urls()

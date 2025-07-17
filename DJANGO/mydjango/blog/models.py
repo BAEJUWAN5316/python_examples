@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 
 # from django.contrib.auth.models import User
 # 장고에서 기본으로 지원하는 User모델
@@ -34,7 +35,7 @@ class Post(models.Model):
         PUBLISHED = "published", "공개"
         PRIVATE = "private", "비공개"
 
-    author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=200)
     content = models.TextField()
@@ -74,7 +75,7 @@ class Comment(models.Model): #models의 모든 클래스는 상속을 받아야 
     # 댓글 길이 제한을두지 않으려면 아래처럼
     # content = models.TextField()
 
-    author = models.ForeignKey("auth.User", on_delete=models.CASCADE, blank=False, null=False)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False, null=False)
     # blank=False, null=False 는 기본값.
     # balnk는 form 입장에서 빈 입력필드를 허용할 지 여부
     # null은 db입장에서 빈 값을 넣게 허용할지 여부
