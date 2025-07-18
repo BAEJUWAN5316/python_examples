@@ -192,15 +192,25 @@ if DEBUG:
     DEFAULT_RENDERER_CLASSES = [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
-        'blog.renderers.PandasXlsxRenderer'
+        'blog.renderers.PandasXlsxRenderer',
+    ]
+
+    DEFAULT_AUTHENTICATION_CLASSES = [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ]
 
 else:
     DEFAULT_RENDERER_CLASSES = [
         'rest_framework.renderers.JSONRenderer',
-        'blog.renderers.PandasXlsxRenderer'
+        'blog.renderers.PandasXlsxRenderer',
     ]
 
+    DEFAULT_AUTHENTICATION_CLASSES = [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+
+    
 # <a href="/blog/api/v1/posts/?format=xlsx">엑셀 다운로드</a>
 # rederer를 이용하면 이렇게 a태그 이용해서 엑설파일 다운로드하기 가능
 
@@ -209,12 +219,14 @@ else:
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': DEFAULT_AUTHENTICATION_CLASSES,
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
 
     # 페이지 크기 전역 설정
-    "PAGE_SIZE": env.int("REST_FRAMEWORK_PAGE_SIZE", default=10),
+    "PAGE_SIZE": env.int("REST_FRAMEWORK_PAGE_SIZE", default=5),
     # 페이지네이션 전역 설정
     # "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    # "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.CursorPagination",
     "DEFAULT_PAGINATION_CLASS": "blog.pagination.PkCursorPagination",
 }
 

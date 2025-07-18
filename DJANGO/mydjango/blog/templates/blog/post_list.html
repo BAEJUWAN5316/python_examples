@@ -11,11 +11,9 @@
 
     {% for post in post_list %}
         <div>
-            <!-- {% url_'blog:post_list' pk=post.pk as post_url %} -->
-            <!-- <a href="/blog/{{post.pk}}/">100번 포스팅 보기</a> -->
-            <a href="{% url_'blog:post_list' pk=post.pk as post_url %}">{{ post.title }}</a>
+            <a href="{% url 'blog:post_detail' pk=post.pk as post_url %}">{{ post.title }}</a>
             <!-- 위아래 똑같은 뜻! -->
-            <a href="{% post_url %}">{{ post.title }}</a>
+            <a href="{{ post_url }}">{{ post.title }}</a>
             <!-- 위아래 똑같은 뜻! -->
 
 

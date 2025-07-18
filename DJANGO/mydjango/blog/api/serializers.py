@@ -74,3 +74,9 @@ class PostListSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
+
+
+class PostCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ["id", "title", "content", "status"]

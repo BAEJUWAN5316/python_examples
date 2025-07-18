@@ -8,7 +8,7 @@ app_name = "blog"
 # 앱 이름과 동일하게 지정해주면 됩니다
 
 urlpatterns = [
-    path("/", views.post_list, name="post_list"),
+    path("", views.post_list, name="post_list"),
     path("new/", views.post_new, name="post_new"),
     path("<int:pk>/", views.post_detail, name="post_detail"),
     path("<int:post_pk>/comments/new/", views.comment_new, name="comment_new"),
