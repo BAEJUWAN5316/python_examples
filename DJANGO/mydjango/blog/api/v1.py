@@ -5,10 +5,31 @@ from blog.api.serializers import PostSerializer, PostListSerializer, PostCreateS
 from rest_framework.viewsets import ModelViewSet
 from blog.models import Post
 from rest_framework.routers import DefaultRouter
+from blog.api.permissions import IsAuthorOrReadonly
 
+
+# ViewSet은 5개 api를 지원합니다
+# list, create, detail,(retrieve) update, delete
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all() #ㄱ정. 가변적으로 줄려면 get_queryser 메서드 구현
     serializer_class = PostSerializer # 고정. 가변적으로 줄려면 get_serializer 메서드를 구현
+    
+    # 권한 넣어주는 거
+    permission_classes = [IsAuthorOrReadonly] #디폴트는 [AllowAny] 누구나 작성,수정 가능한 것
+
+    def get_queryset(self):
+        if self.action == "list":
+            return PostListSerializer.get_optimized_queryset()
+
+        # 아래 코드는 클래스 변수의 queryset 설정을 활용합니다.
+        return super().get_queryset()
+    
+    def get_serializer_class(self):
+        if self.action == "list":
+            return PostListSerializer
+        # 아래 코드가 수행되면, 클래스 변수의 serializer_class 설정을 반환합니다.
+        return super().get_serializer_class()
+
 
 router = DefaultRouter()
 router.register("posts", PostViewSet)

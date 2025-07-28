@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "django_bootstrap5",
     "django_extensions",
     "rest_framework",
+    "corsheaders",
     # local apps
     "accounts",
     "baemin",
@@ -66,6 +67,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -196,7 +198,7 @@ if DEBUG:
     ]
 
     DEFAULT_AUTHENTICATION_CLASSES = [
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ]
 
@@ -230,4 +232,13 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "blog.pagination.PkCursorPagination",
 }
 
+
+# django-cors-headers 설정 : 아래 설정은 환경변수로부터 로딩되도록 하시면 좋습니다.
+CORS_ALLOWED_ORIGINS = [
+    # create-react-app 생성한 프로젝트에서의 디폴트 개발서버 포트
+    "http://127.0.0.1:3000", "http://localhost:3000",
+    # vite를 통해 생성한 리액트 프로젝트에서의 디폴트 개발서버 포트
+    "http://127.0.0.1:5173", "http://localhost:5173",
+]
+CORS_ALLOW_CREDENTIALS = True
 

@@ -12,7 +12,8 @@ from django.contrib.auth import login as auth_login
 
 
 login = LoginView.as_view(
-    template_name="accounts/login_form.html"
+    template_name="accounts/login_form.html",
+    success_url_allowed_hosts=["localhost:3000", "localhost:5173"]
 )
 
 logout = LogoutView.as_view()
